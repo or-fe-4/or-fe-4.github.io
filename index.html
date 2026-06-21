@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<!-- HTML5であることを宣言 -->
+
+<html lang="ja">
+<!-- ページ全体の開始 -->
+
+<head>
+    <!-- 設定情報 -->
+
+    <meta charset="UTF-8">
+    <!-- 日本語を正しく表示 -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- スマホ対応 -->
+
+    <title>テスト</title>
+    <!-- ブラウザのタブに表示される名前 -->
+
+    <style>
+        /* CSSを書く場所 */
+
+        body {
+            font-family: sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ======================= -->
+    <!-- 見出し -->
+    <!-- ======================= -->
+
+    <section>
+
+        <h1>h1見出し</h1>
+        <h2>h2見出し</h2>
+        <h3>h3見出し</h3>
+        <h4>h4見出し</h4>
+        <h5>h5見出し</h5>
+        <h6>h6見出し</h6>
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- 段落 -->
+    <!-- ======================= -->
+
+    <section>
+
+        <p>
+            これは段落です。
+        </p>
+
+        <p>
+            文章を書くときによく使います。
+        </p>
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- 改行 -->
+    <!-- ======================= -->
+
+    <section>
+
+        一行目<br>
+        二行目<br>
+        三行目
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- 強調 -->
+    <!-- ======================= -->
+
+    <section>
+
+        <strong>重要な文字</strong>
+
+        <br><br>
+
+        <em>強調された文字</em>
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- リンク -->
+    <!-- ======================= -->
+
+    <section>
+
+        <a href="https://github.com">
+            GitHubへ移動
+        </a>
+
+        <br><br>
+
+        <a href="https://google.com" target="_blank">
+            新しいタブで開く
+        </a>
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- 画像 -->
+    <!-- ======================= -->
+
+    <section>
+
+        <img
+            src="https://picsum.photos/300"
+            alt="サンプル画像">
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- 箇条書き -->
+    <!-- ======================= -->
+
+    <section>
+
+        <h2>順不同リスト</h2>
+
+        <ul>
+            <li>数学</li>
+            <li>プログラミング</li>
+            <li>読書</li>
+        </ul>
+
+        <h2>番号付きリスト</h2>
+
+        <ol>
+            <li>起床</li>
+            <li>勉強</li>
+            <li>就寝</li>
+        </ol>
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- 表 -->
+    <!-- ======================= -->
+
+    <section>
+
+        <table>
+
+            <tr>
+                <th>名前</th>
+                <th>年齢</th>
+            </tr>
+
+            <tr>
+                <td>サミ</td>
+                <td>20</td>
+            </tr>
+
+            <tr>
+                <td>田中</td>
+                <td>30</td>
+            </tr>
+
+        </table>
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- ボタン -->
+    <!-- ======================= -->
+
+    <section>
+
+        <button>
+            ボタン
+        </button>
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- 入力フォーム -->
+    <!-- ======================= -->
+
+    <section>
+
+        <form>
+
+            <label>
+                名前:
+                <input type="text">
+            </label>
+
+            <br><br>
+
+            <label>
+                パスワード:
+                <input type="password">
+            </label>
+
+            <br><br>
+
+            <label>
+                メール:
+                <input type="email">
+            </label>
+
+            <br><br>
+
+            <input type="submit" value="送信">
+
+        </form>
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- チェックボックス -->
+    <!-- ======================= -->
+
+    <section>
+
+        <input type="checkbox"> 数学
+
+        <br>
+
+        <input type="checkbox"> 物理
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- ラジオボタン -->
+    <!-- ======================= -->
+
+    <section>
+
+        <input type="radio" name="gender">
+        男
+
+        <br>
+
+        <input type="radio" name="gender">
+        女
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- 選択ボックス -->
+    <!-- ======================= -->
+
+    <section>
+
+        <select>
+
+            <option>東京</option>
+            <option>大阪</option>
+            <option>福岡</option>
+
+        </select>
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- テキストエリア -->
+    <!-- ======================= -->
+
+    <section>
+
+        <textarea rows="5" cols="40">
+自由入力
+        </textarea>
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- 音声 -->
+    <!-- ======================= -->
+
+    <section>
+
+        <audio controls>
+            <source src="sample.mp3">
+        </audio>
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- 動画 -->
+    <!-- ======================= -->
+
+    <section>
+
+        <video width="300" controls>
+            <source src="sample.mp4">
+        </video>
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- div -->
+    <!-- ======================= -->
+
+    <section>
+
+        <div>
+            divは汎用コンテナです。
+        </div>
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- span -->
+    <!-- ======================= -->
+
+    <section>
+
+        今日は
+        <span style="color:red;">
+            重要
+        </span>
+        です。
+
+    </section>
+
+
+    <!-- ======================= -->
+    <!-- JavaScript -->
+    <!-- ======================= -->
+
+    <section>
+
+        <button onclick="hello()">
+            押してね
+        </button>
+
+    </section>
+
+    <script>
+
+        // JavaScriptを書く場所
+
+        function hello() {
+            alert("こんにちは！");
+        }
+
+    </script>
+
+</body>
+
+</html>
