@@ -18,9 +18,9 @@ export const friends: LinkItem[] = [
     bannerSize: { width: 88, height: 31 },
   },
   {
-    name: 'バナーなしのリンク',
-    url: 'https://example.org/',
-    description: 'バナーがないサイトはテキストだけで載せられる',
+    name: 'Twitter',
+    url: 'https://x.com/or_fe_4',
+    description: 'サミのTwitterアカウント',
   },
 ];
 
