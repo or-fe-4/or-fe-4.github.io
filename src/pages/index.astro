@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+import SideLinks from '../components/SideLinks.astro';
+import { getPosts } from '../lib/posts';
+import { top } from '../data/top';
+
+const pinned = (await getPosts()).filter((p) => p.data.pinned);
+---
+
+<Base>
+  <div class="top-layout">
+    <div class="top-main">
+      <section class="hero">
+        <img
+          class="hero-img"
+          src={top.heroImage}
+          alt={top.heroAlt}
+          style={`--hero-ratio: ${top.heroRatio}; --hero-pos: ${top.heroPosition}`}
+        />
+        <h1>{top.heading}</h1>
+        {top.paragraphs.map((p) => <p>{p}</p>)}
+      </section>
+
+      {
+        pinned.length > 0 && (
+          <section class="pinned" aria-labelledby="pinned-title">
+            <h2 id="pinned-title">固定記事</h2>
+            <ul class="post-list">
+              {pinned.map((post) => <PostCard post={post} pinned />)}
+            </ul>
+          </section>
+        )
+      }
+
+      <p class="all-posts"><a href="/posts/">すべての記事を見る →</a></p>
+    </div>
+
+    <aside class="top-side">
+      <SideLinks />
+    </aside>
+  </div>
+</Base>

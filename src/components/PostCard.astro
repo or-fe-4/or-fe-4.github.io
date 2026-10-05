@@ -1,0 +1,48 @@
+---
+import { excerpt, formatDate, type Post } from '../lib/posts';
+
+interface Props {
+  post: Post;
+  /** TOPの固定記事として「PINNED」ラベルを付ける */
+  pinned?: boolean;
+}
+const { post, pinned = false } = Astro.props;
+---
+
+<li data-slug={post.id} data-date={post.data.date.valueOf()}>
+  <article class="card">
+    <div class="thumb" aria-hidden="true">
+      {
+        post.data.thumbnail ? (
+          <img src={post.data.thumbnail} alt="" loading="lazy" />
+        ) : (
+          <span>{post.data.title.slice(0, 1)}</span>
+        )
+      }
+    </div>
+    <div class="card-body">
+      <div class="meta">
+        {pinned && <span class="pin-label">PINNED</span>}
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        <span>{post.data.author ?? ''}</span>
+      </div>
+      <h2>
+        <a class="card-link" href={`/posts/${post.id}/`}>
+          {post.data.title}
+        </a>
+      </h2>
+      <p class="excerpt">{excerpt(post.body ?? '')}</p>
+      {
+        post.data.tags.length > 0 && (
+          <div class="tags">
+            {post.data.tags.map((t) => (
+              <a class="tag" href={`/tags/${encodeURIComponent(t)}/`}>
+                {t}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </article>
+</li>

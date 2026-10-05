@@ -1,0 +1,117 @@
+---
+import PostCard from './PostCard.astro';
+import type { Post } from '../lib/posts';
+
+interface Props {
+  posts: Post[];
+  /** 検索ボックスを出すか(タグページでは不要) */
+  searchable?: boolean;
+}
+const { posts, searchable = true } = Astro.props;
+---
+
+<section class="post-browser">
+  <div class="controls">
+    {
+      searchable && (
+        <input
+          type="search"
+          id="post-search"
+          placeholder="サイト内検索(タイトル・本文・タグ)"
+          aria-label="サイト内検索"
+          autocomplete="off"
+        />
+      )
+    }
+    <div class="sort" role="group" aria-label="並べ替え">
+      <button type="button" data-sort="new" aria-pressed="true">新しい順</button>
+      <button type="button" data-sort="old" aria-pressed="false">古い順</button>
+    </div>
+    <div class="sort" role="group" aria-label="表示形式">
+      <button type="button" data-view="list" aria-pressed="true">リスト</button>
+      <button type="button" data-view="grid" aria-pressed="false">ブロック</button>
+    </div>
+  </div>
+
+  <ul class="post-list">
+    {posts.map((post) => <PostCard post={post} />)}
+  </ul>
+  <p class="empty" id="empty" hidden>該当する記事がありません。</p>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('.post-browser')!;
+  const list = root.querySelector<HTMLUListElement>('.post-list')!;
+  const items = Array.from(list.querySelectorAll<HTMLLIElement>(':scope > li'));
+  const empty = root.querySelector<HTMLElement>('#empty')!;
+  const search = root.querySelector<HTMLInputElement>('#post-search');
+  const sortButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-sort]'));
+  const viewButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-view]'));
+
+  let sortKey = 'new';
+  let matches: Set<string> | null = null; // null = 絞り込みなし
+
+  function apply() {
+    const date = (el: HTMLElement) => Number(el.dataset.date ?? 0);
+    const sorted = [...items].sort((a, b) => (sortKey === 'old' ? date(a) - date(b) : date(b) - date(a)));
+    sorted.forEach((li) => list.appendChild(li));
+    let visible = 0;
+    for (const li of items) {
+      const show = !matches || matches.has(li.dataset.slug!);
+      li.hidden = !show;
+      if (show) visible++;
+    }
+    empty.hidden = visible > 0;
+  }
+
+  sortButtons.forEach((b) =>
+    b.addEventListener('click', () => {
+      sortKey = b.dataset.sort!;
+      sortButtons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      apply();
+    }),
+  );
+
+  // リスト / ブロック表示(選択はブラウザに覚えておく)
+  function setView(view: string) {
+    list.classList.toggle('is-grid', view === 'grid');
+    viewButtons.forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.view === view)));
+  }
+  let saved = 'list';
+  try {
+    saved = localStorage.getItem('postView') ?? 'list';
+  } catch {
+    /* 保存できなくても動く */
+  }
+  setView(saved);
+  viewButtons.forEach((b) =>
+    b.addEventListener('click', () => {
+      setView(b.dataset.view!);
+      try {
+        localStorage.setItem('postView', b.dataset.view!);
+      } catch {
+        /* 保存できなくても動く */
+      }
+    }),
+  );
+
+  // サイト内検索(初回入力時に検索インデックスを読み込む)
+  type Entry = { slug: string; text: string };
+  let index: Entry[] | null = null;
+  async function runSearch() {
+    const q = (search?.value ?? '').trim().toLowerCase();
+    if (!q) {
+      matches = null;
+      apply();
+      return;
+    }
+    if (!index) {
+      const res = await fetch('/search-index.json');
+      index = await res.json();
+    }
+    const terms = q.split(/\s+/);
+    matches = new Set(index!.filter((e) => terms.every((t) => e.text.includes(t))).map((e) => e.slug));
+    apply();
+  }
+  search?.addEventListener('input', runSearch);
+</script>

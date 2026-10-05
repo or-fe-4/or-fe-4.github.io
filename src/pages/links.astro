@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import { friends, myBanners } from '../data/links';
+import { SITE } from '../config';
+
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
+---
+
+<Base title="リンク">
+  <h1 class="page-title">リンク</h1>
+
+  <section class="link-section">
+    <h2>friends &amp; sites</h2>
+    <ul class="link-grid">
+      {
+        friends.map((l) => (
+          <li class="link-item">
+            {l.banner && (
+              <a class="banner-link" href={l.url} target="_blank" rel="noopener">
+                <img
+                  src={l.banner}
+                  alt={`${l.name}のバナー`}
+                  width={l.bannerSize?.width}
+                  height={l.bannerSize?.height}
+                />
+              </a>
+            )}
+            <a href={l.url} target="_blank" rel="noopener">
+              {l.name}
+            </a>
+            {l.description && <small>{l.description}</small>}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="link-section" id="my_banner">
+    <h2>my banners</h2>
+    <p>リンクを貼ってくれるときはこちらをどうぞ。</p>
+    <ul class="link-grid">
+      {
+        myBanners.map((b) => (
+          <li class="link-item">
+            <span class="banner-link">
+              <img src={b.banner} alt={`${SITE.title}の${b.name}`} width={b.bannerSize.width} height={b.bannerSize.height} />
+            </span>
+            <small>{b.name}({b.bannerSize.width}×{b.bannerSize.height})</small>
+            <code class="banner-code">{`<a href="${siteUrl.href}"><img src="${new URL(b.banner, siteUrl).href}" alt="${SITE.title}" width="${b.bannerSize.width}" height="${b.bannerSize.height}"></a>`}</code>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>

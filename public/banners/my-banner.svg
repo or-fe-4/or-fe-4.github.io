@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" width="200" height="40">
+  <rect width="200" height="40" fill="#fff"/>
+  <rect x="1" y="1" width="198" height="38" fill="none" stroke="#000" stroke-width="2"/>
+  <rect x="8" y="8" width="24" height="24" fill="#000"/>
+  <rect x="14" y="14" width="12" height="12" fill="#fff"/>
+  <rect x="18" y="18" width="4" height="4" fill="#000"/>
+  <text x="42" y="26" font-family="monospace" font-size="14" font-weight="bold" fill="#000">MY SITE</text>
+</svg>

@@ -1,0 +1,25 @@
+---
+import { friends } from '../data/links';
+---
+
+<nav class="side-links" aria-label="リンク集">
+  <h2>links</h2>
+  <ul>
+    {
+      friends.map((l) => (
+        <li>
+          {l.banner ? (
+            <a class="banner-link" href={l.url} target="_blank" rel="noopener" title={l.name}>
+              <img src={l.banner} alt={l.name} width={l.bannerSize?.width} height={l.bannerSize?.height} />
+            </a>
+          ) : (
+            <a href={l.url} target="_blank" rel="noopener">
+              {l.name}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+  <p><a href="/links/">リンク集をひらく →</a></p>
+</nav>

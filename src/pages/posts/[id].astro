@@ -1,0 +1,106 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { SITE } from '../../config';
+import { formatDate, getPosts, excerpt } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, date, tags } = post.data;
+const author = post.data.author ?? SITE.author;
+---
+
+<Base
+  title={title}
+  description={excerpt(post.body ?? '', 120)}
+  image={post.data.thumbnail}
+  type="article"
+  publishedTime={date}
+  tags={tags}
+  author={author}
+>
+  <article class="narrow">
+    <header class="article-head">
+      <h1>{title}</h1>
+      <div class="meta">
+        <time datetime={date.toISOString()}>{formatDate(date)}</time>
+        <span>by {author}</span>
+      </div>
+      {
+        tags.length > 0 && (
+          <div class="tags">
+            {tags.map((t) => (
+              <a class="tag" href={`/tags/${encodeURIComponent(t)}/`}>
+                {t}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <p><a href="/posts/">← 記事一覧へ</a></p>
+  </article>
+</Base>
+
+<script>
+  // Xの埋め込みがある記事だけ、公式スクリプトを読み込む(白黒テーマに合わせる)
+  const tweets = document.querySelectorAll('.twitter-tweet');
+  if (tweets.length > 0) {
+    const theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+    tweets.forEach((el) => el.setAttribute('data-theme', theme));
+    const s = document.createElement('script');
+    s.src = 'https://platform.twitter.com/widgets.js';
+    s.async = true;
+    document.body.appendChild(s);
+  }
+</script>
+
+<script>
+  // 記事内の画像をクリックすると拡大表示(絵文字画像は対象外)
+  const images = Array.from(document.querySelectorAll<HTMLImageElement>('.prose img:not(.emoji)'));
+  if (images.length > 0) {
+    const dialog = document.createElement('dialog');
+    dialog.className = 'lightbox';
+    dialog.setAttribute('aria-label', '拡大表示');
+    dialog.innerHTML =
+      '<button type="button" class="lightbox-close" aria-label="閉じる">×</button><img alt=""><p class="lightbox-caption" hidden></p>';
+    document.body.appendChild(dialog);
+
+    const big = dialog.querySelector('img')!;
+    const caption = dialog.querySelector<HTMLElement>('.lightbox-caption')!;
+
+    const open = (img: HTMLImageElement) => {
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt;
+      const text = img.closest('figure')?.querySelector('figcaption')?.textContent ?? '';
+      caption.textContent = text;
+      caption.hidden = text === '';
+      dialog.showModal();
+    };
+
+    for (const img of images) {
+      img.classList.add('zoomable');
+      img.tabIndex = 0;
+      img.setAttribute('role', 'button');
+      img.addEventListener('click', () => open(img));
+      img.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          open(img);
+        }
+      });
+    }
+    // どこをクリックしても閉じる(Escキーも標準で閉じる)
+    dialog.addEventListener('click', () => dialog.close());
+  }
+</script>

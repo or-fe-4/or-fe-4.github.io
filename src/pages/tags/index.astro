@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import { countTags, getPosts } from '../../lib/posts';
+
+const tags = [...countTags(await getPosts())].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ja'));
+---
+
+<Base title="タグ">
+  <h1 class="page-title">タグ</h1>
+  {
+    tags.length === 0 ? (
+      <p class="empty">まだタグがありません。</p>
+    ) : (
+      <ul class="tag-cloud">
+        {tags.map(([tag, n]) => (
+          <li>
+            <a href={`/tags/${encodeURIComponent(tag)}/`}>
+              {tag} ({n})
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Base>
