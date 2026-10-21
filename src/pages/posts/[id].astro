@@ -53,15 +53,73 @@ const author = post.data.author ?? SITE.author;
 </Base>
 
 <script>
-  // Xの埋め込みがある記事だけ、公式スクリプトを読み込む(白黒テーマに合わせる)
-  const tweets = document.querySelectorAll('.twitter-tweet');
-  if (tweets.length > 0) {
-    const theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
-    tweets.forEach((el) => el.setAttribute('data-theme', theme));
-    const s = document.createElement('script');
-    s.src = 'https://platform.twitter.com/widgets.js';
-    s.async = true;
-    document.body.appendChild(s);
+  type TwitterAPI = { ready?: (callback: (api: TwitterAPI) => void) => void; widgets: { createTweet: (id: string, target: HTMLElement, options: Record<string, unknown>) => Promise<HTMLElement | undefined> } };
+  const hosts = Array.from(document.querySelectorAll<HTMLElement>('.embed-tweet'));
+  if (hosts.length) {
+    const items = hosts.map(host => {
+      const href = host.querySelector('a')?.href ?? '';
+      const id = href.match(/status\/(\d+)/)?.[1];
+      const mount = document.createElement('div');
+      mount.className = 'tweet-mount';
+      const fallback = document.createElement('a');
+      fallback.href = href;
+      fallback.className = 'tweet-fallback';
+      fallback.textContent = 'Xでこの投稿を読む';
+      const retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'tweet-retry';
+      retry.textContent = '埋め込みを再読み込み';
+      host.replaceChildren(mount, fallback, retry);
+      return { host, mount, id, retry, signature: '' };
+    });
+    let api: TwitterAPI | undefined;
+    const renderTweets = (force = false) => {
+      if (!api) return;
+      const theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+      for (const item of items) {
+        if (!item.id) continue;
+        const width = Math.min(550, Math.floor(item.host.getBoundingClientRect().width));
+        if (width < 250) continue;
+        const signature = `${theme}:${width}`;
+        if (!force && item.signature === signature) continue;
+        item.signature = signature;
+        const next = document.createElement('div');
+        next.className = 'tweet-mount';
+        item.mount.replaceWith(next);
+        item.mount = next;
+        item.retry.hidden = true;
+        void api.widgets.createTweet(item.id, next, { theme, width, dnt: true, align: 'center', lang: 'ja' })
+          .then(result => { if (item.mount === next) item.retry.hidden = Boolean(result); })
+          .catch(() => { if (item.mount === next) item.retry.hidden = false; });
+      }
+    };
+    let loading = false;
+    const load = () => {
+      if (api) { renderTweets(true); return; }
+      if (loading) return;
+      loading = true;
+      const script = document.createElement('script');
+      script.src = 'https://platform.twitter.com/widgets.js';
+      script.async = true;
+      script.addEventListener('load', () => {
+        loading = false;
+        const twitter = (window as Window & { twttr?: TwitterAPI }).twttr;
+        const ready = (value: TwitterAPI) => { api = value; renderTweets(); };
+        if (twitter?.ready) twitter.ready(ready);
+        else if (twitter?.widgets) ready(twitter);
+      });
+      script.addEventListener('error', () => { loading = false; script.remove(); });
+      document.body.appendChild(script);
+    };
+    items.forEach(item => item.retry.addEventListener('click', load));
+    new MutationObserver(() => renderTweets()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    let timer: ReturnType<typeof setTimeout>;
+    const observer = new ResizeObserver(() => {
+      clearTimeout(timer);
+      timer = setTimeout(() => renderTweets(), 200);
+    });
+    items.forEach(item => observer.observe(item.host));
+    load();
   }
 </script>
 

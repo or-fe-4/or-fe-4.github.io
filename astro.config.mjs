@@ -4,6 +4,7 @@ import { unified } from '@astrojs/markdown-remark';
 import rehypeFigure from './src/plugins/rehype-figure.mjs';
 import rehypeEmoji from './src/plugins/rehype-emoji.mjs';
 import rehypeEmbed from './src/plugins/rehype-embed.mjs';
+import rehypeFootnotes from './src/plugins/rehype-footnotes.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,7 +19,7 @@ export default defineConfig({
     // rehypeEmoji : :名前: を public/emoji/ の画像に変換(自作)。順番はこのまま。
     processor: unified({
       gfm: true,
-      rehypePlugins: [rehypeFigure, rehypeEmbed, rehypeEmoji],
+      rehypePlugins: [rehypeFigure, rehypeEmbed, rehypeEmoji, rehypeFootnotes],
     }),
     // 白黒統一のためコードブロックは装飾なし
     syntaxHighlight: false,

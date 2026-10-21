@@ -5,13 +5,15 @@ import SideLinks from '../components/SideLinks.astro';
 import { getPosts } from '../lib/posts';
 import { top } from '../data/top';
 
-const pinned = (await getPosts()).filter((p) => p.data.pinned);
+const posts = (await getPosts()).filter((p) => !p.data.draft);
+const pinned = posts.filter((p) => p.data.pinned);
 ---
 
 <Base>
   <div class="top-layout">
     <div class="top-main">
       <section class="hero">
+        <div class="eyebrow">PERSONAL WEBSITE / NOTES &amp; FAVORITES</div>
         <img
           class="hero-img"
           src={top.heroImage}
@@ -33,6 +35,15 @@ const pinned = (await getPosts()).filter((p) => p.data.pinned);
         )
       }
 
+      {posts.length > 0 && <section class="random-section" aria-labelledby="random-title">
+        <div class="section-heading">
+          <h2 id="random-title">寄り道 / ランダムな記事</h2>
+          <button id="random-pick" type="button" hidden>もう一つ読む</button>
+        </div>
+        <div id="random-posts" aria-live="polite">
+          {posts.map((post, index) => <div hidden={index !== 0} class="random-entry"><ul class="post-list"><PostCard post={post} /></ul></div>)}
+        </div>
+      </section>}
       <p class="all-posts"><a href="/posts/">すべての記事を見る →</a></p>
     </div>
 
@@ -41,3 +52,17 @@ const pinned = (await getPosts()).filter((p) => p.data.pinned);
     </aside>
   </div>
 </Base>
+
+<script>
+  const entries = Array.from(document.querySelectorAll<HTMLElement>('.random-entry'));
+  const pick = document.getElementById('random-pick');
+  let current = -1;
+  function choose() {
+    const candidates = entries.map((_, i) => i).filter(i => i !== current);
+    const next = candidates[Math.floor(Math.random() * candidates.length)] ?? 0;
+    entries.forEach((entry, i) => { entry.hidden = i !== next; });
+    current = next;
+  }
+  if (entries.length) choose();
+  if (pick && entries.length > 1) { pick.hidden = false; pick.addEventListener('click', choose); }
+</script>

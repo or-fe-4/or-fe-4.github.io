@@ -62,6 +62,21 @@ function tweet(href) {
   };
 }
 
+function articleCard(src, href, title, provider) {
+  return {
+    type: 'element', tagName: 'div',
+    properties: { className: ['embed', 'embed-article', `embed-${provider}`] },
+    children: [
+      { type: 'element', tagName: 'iframe', properties: {
+        src, title, loading: 'lazy', width: '100%', height: provider === 'note' ? 400 : 190,
+        referrerPolicy: 'strict-origin-when-cross-origin',
+      }, children: [] },
+      { type: 'element', tagName: 'a', properties: { href, className: ['embed-source'] },
+        children: [{ type: 'text', value: `${title}を開く` }] },
+    ],
+  };
+}
+
 function parse(href) {
   let u;
   try {
@@ -71,6 +86,16 @@ function parse(href) {
   }
   if (!/^https?:$/.test(u.protocol)) return null;
   const host = u.hostname.replace(/^(www|m|mobile)\./, '');
+
+  // Official article cards; keep the source link usable when the provider is blocked.
+  if (host === 'note.com') {
+    const note = u.pathname.match(/^\/[^/]+\/n\/(n[a-f0-9]+)\/?$/);
+    if (note) return articleCard(`https://note.com/embed/notes/${note[1]}`, href, 'noteの記事', 'note');
+  }
+  const hatena = ['hatenablog.com', 'hatenablog.jp', 'hateblo.jp', 'hatenadiary.com', 'hatenadiary.jp'];
+  if (hatena.some(domain => host === domain || host.endsWith(`.${domain}`)) && u.pathname.startsWith('/entry/')) {
+    return articleCard(`https://hatenablog-parts.com/embed?url=${encodeURIComponent(href)}`, href, 'はてなブログの記事', 'hatena');
+  }
 
   // YouTube
   let id = null;
