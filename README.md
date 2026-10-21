@@ -119,7 +119,7 @@ https://x.com/ユーザー名/status/数字         (twitter.com のURLも可)
 ## 今回のデザイン改善
 
 白黒とグレーを基調に、細い罫線と点線を使った古い個人サイト風のデザインです。
-本文は13px。同梱のPixelMplus12を使用します。文字そのものがピクセル状の輪郭なので、拡大しても通常のゴシックに切り替わりません。
+本文は16px。同梱のPixelMplus12を使用します。文字そのものがピクセル状の輪郭なので、拡大しても通常のゴシックに切り替わりません。
 PixelMplus12はM+ FONT LICENSE。文字がない場合はDotGothic16（SIL Open Font License）などへフォールバックします。
 見た目の調整は `src/styles/atmosphere.css` にまとまっています。
 
