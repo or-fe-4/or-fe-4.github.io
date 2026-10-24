@@ -7,7 +7,7 @@
     "ogImage": "/wasu.png"
   },
   "top": {
-    "heroImage": "/images/shino.png",
+    "heroImage": "/images/article-1792848116497-1cf437.png",
     "heroAlt": "サイトのメイン画像",
     "heroRatio": "16 / 7",
     "heroPosition": "center",
@@ -20,38 +20,11 @@
   "links": {
     "friends": [
       {
-        "name": "サンプルのリンク",
-        "url": "https://example.com/",
-        "description": "友達サイトやお気に入りのサイトをここに追加",
-        "banner": "/banners/friend-sample.svg",
-        "bannerSize": {
-          "width": 88,
-          "height": 31
-        }
-      },
-      {
-        "name": "Twitter",
-        "url": "https://x.com/or_fe_4",
-        "description": "サミのTwitterアカウント"
+        "name": "Twitterアカウント",
+        "url": "https://x.com/s4_i62",
+        "description": ""
       }
     ],
-    "myBanners": [
-      {
-        "name": "メインバナー",
-        "banner": "/banners/my-banner.svg",
-        "bannerSize": {
-          "width": 200,
-          "height": 40
-        }
-      },
-      {
-        "name": "ミニバナー",
-        "banner": "/banners/friend-sample.svg",
-        "bannerSize": {
-          "width": 88,
-          "height": 31
-        }
-      }
-    ]
+    "myBanners": []
   }
 }
