@@ -1,9 +1,11 @@
 ---
 title: はじめての記事 — 書式サンプル
 date: 2026-10-05
-tags: [お知らせ, サンプル]
+tags:
+  - サンプル
 thumbnail: /images/sample-1.svg
 pinned: true
+draft: false
 ---
 
 このサイトで使える書き方をひと通り並べたサンプル記事です。不要になったらこのファイルを消してください。

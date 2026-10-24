@@ -2,8 +2,11 @@
 title: 二つ目の記事
 date: 2026-09-20
 author: ゲスト
-tags: [サンプル, メモ]
+tags:
+  - サンプル
 thumbnail: /images/sample-2.svg
+draft: false
+pinned: false
 ---
 
 投稿者を指定した例です。`author` を省略すると、`src/config.ts` に書いた名前が使われます。
