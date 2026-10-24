@@ -1,12 +1,13 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { listEmoji } from '../plugins/rehype-emoji.mjs';
+import { isPublishable } from './publication.mjs';
 
 export type Post = CollectionEntry<'posts'>;
 
 /** 公開用の記事一覧(下書きは本番ビルドから除外)。新しい順。 */
 export async function getPosts(): Promise<Post[]> {
   const posts = await getCollection('posts', ({ data }) =>
-    import.meta.env.PROD ? !data.draft : true,
+    import.meta.env.PROD ? isPublishable(data) : true,
   );
   return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }

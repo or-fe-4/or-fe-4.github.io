@@ -1,0 +1,57 @@
+{
+  "site": {
+    "title": "差分研究会",
+    "description": "アニメにゲームが大好き！",
+    "author": "サミ",
+    "lang": "ja",
+    "ogImage": "/wasu.png"
+  },
+  "top": {
+    "heroImage": "/images/shino.png",
+    "heroAlt": "サイトのメイン画像",
+    "heroRatio": "16 / 7",
+    "heroPosition": "center",
+    "heading": "ようこそ！",
+    "paragraphs": [
+      "ここにサイトの説明や自己紹介を書きます。",
+      "OGP, icon, hero, 自己紹介, リンク, スクリプション"
+    ]
+  },
+  "links": {
+    "friends": [
+      {
+        "name": "サンプルのリンク",
+        "url": "https://example.com/",
+        "description": "友達サイトやお気に入りのサイトをここに追加",
+        "banner": "/banners/friend-sample.svg",
+        "bannerSize": {
+          "width": 88,
+          "height": 31
+        }
+      },
+      {
+        "name": "Twitter",
+        "url": "https://x.com/or_fe_4",
+        "description": "サミのTwitterアカウント"
+      }
+    ],
+    "myBanners": [
+      {
+        "name": "メインバナー",
+        "banner": "/banners/my-banner.svg",
+        "bannerSize": {
+          "width": 200,
+          "height": 40
+        }
+      },
+      {
+        "name": "ミニバナー",
+        "banner": "/banners/friend-sample.svg",
+        "bannerSize": {
+          "width": 88,
+          "height": 31
+        }
+      }
+    ]
+  }
+}

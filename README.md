@@ -150,3 +150,10 @@ noteはnote.comの記事URLに対応します。画像だけの投稿・マガ�
 ## 検証
 
 `node --test tests/embeds.test.mjs` でURL変換と既存の動画・X埋め込みの回帰検証を行えます。
+
+## エディターと予約公開
+
+サイト名・トップ・リンク集のデータは `src/data/site-settings.json` にまとまっています。隣の `editor/start.cmd` で専用エディターを起動し、記事・設定の保存と公開操作ができます。
+記事の `publishAt` にタイムゾーン付き日時（例: `2026-10-25T12:30:00+09:00`）を指定すると、その日時までは公開ビルドから除外されます。`draft: true` が優先です。
+保存した記事をGitHubへ反映すると、GitHub Actionsが約15分ごとに予約を確認します。初回のワークフロー更新もGitHubへ反映する必要があります。正確な時刻の公開を保証するものではありません。
+`node --test tests/embeds.test.mjs tests/publication.test.mjs ../editor/features.test.mjs` で、埋め込み・予約判定・設定保存・公開処理の順番と失敗時の停止を検証できます。

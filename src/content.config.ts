@@ -15,6 +15,8 @@ const posts = defineCollection({
     // true にするとTOPページの「固定記事」に表示される
     pinned: z.boolean().default(false),
     draft: z.boolean().default(false),
+    // ISO timestamp including timezone; the editor uses Japan time.
+    publishAt: z.coerce.date().optional(),
   }),
 });
 
