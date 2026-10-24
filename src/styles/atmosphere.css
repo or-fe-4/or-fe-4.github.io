@@ -131,3 +131,5 @@ h1, h2, h3 { letter-spacing: 0; }
 
 /* Finer 16-dot letterforms at the original compact text size; no default bold. */
 h1, h2, h3, h4, h5, h6, th, strong, b, .thumb, .prose summary { font-weight: 400; }
+.prose figure.image-sized { width: 100%; max-width: var(--image-width, 100%); margin-inline: auto; }
+.prose figure.image-sized img { max-width: 100%; height: auto; }
