@@ -5,7 +5,7 @@ author: ゲスト
 tags:
   - サンプル
 thumbnail: /images/sample-2.svg
-draft: false
+draft: true
 pinned: false
 ---
 

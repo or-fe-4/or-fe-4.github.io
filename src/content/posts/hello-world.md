@@ -4,8 +4,8 @@ date: 2026-10-05
 tags:
   - サンプル
 thumbnail: /images/sample-1.svg
-pinned: true
-draft: false
+pinned: false
+draft: true
 ---
 
 このサイトで使える書き方をひと通り並べたサンプル記事です。不要になったらこのファイルを消してください。
