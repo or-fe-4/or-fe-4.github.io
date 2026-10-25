@@ -4,7 +4,7 @@
     "description": "アニメにゲームが大好き！",
     "author": "サミ",
     "lang": "ja",
-    "ogImage": "/images/article-1792898009999-a21435.jpg"
+    "ogImage": "/images/article-1792898527265-70ebe4.jpg"
   },
   "top": {
     "heroImage": "/images/article-1792897997816-aaa8f9.jpg",
@@ -13,21 +13,26 @@
     "heroPosition": "center",
     "heading": "ようこそ！",
     "paragraphs": [
-      "ここにサイトの説明や自己紹介を書きます。",
-      "OGP, icon, hero, 自己紹介, リンク, スクリプション"
+      "このサイトは、アニメやゲームなどに関する記事をゆるく投稿していくサイトです",
+      "差分研究会は日々進化中！"
     ]
   },
   "links": {
     "friends": [
       {
-        "name": "Twitterアカウント",
+        "name": "Twitter",
         "url": "https://x.com/s4_i62",
         "description": ""
       },
       {
-        "name": "Scrapbox",
-        "url": "https://scrapbox.io/or-fe-4/",
-        "description": "サミの個人的なメモ"
+        "name": "Youtube",
+        "url": "https://www.youtube.com/@s4_i62",
+        "description": ""
+      },
+      {
+        "name": "Discordサーバー",
+        "url": "https://discord.gg/4yUvqDr7sX",
+        "description": "サミの個人サーバーになります"
       }
     ],
     "myBanners": [
