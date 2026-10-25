@@ -133,3 +133,9 @@ h1, h2, h3 { letter-spacing: 0; }
 h1, h2, h3, h4, h5, h6, th, strong, b, .thumb, .prose summary { font-weight: 400; }
 .prose figure.image-sized { width: 100%; max-width: var(--image-width, 100%); margin-inline: auto; }
 .prose figure.image-sized img { max-width: 100%; height: auto; }
+
+/* Keep the compact mobile type while improving desktop reading. */
+@media (min-width: 761px) {
+  .prose, .hero > p { font-size: 15px; }
+  .card .excerpt { font-size: 14px; }
+}
