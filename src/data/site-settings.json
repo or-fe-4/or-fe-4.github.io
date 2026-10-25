@@ -4,10 +4,10 @@
     "description": "アニメにゲームが大好き！",
     "author": "サミ",
     "lang": "ja",
-    "ogImage": "/wasu.png"
+    "ogImage": "/images/article-1792895375777-06fd7b.png"
   },
   "top": {
-    "heroImage": "/images/article-1792848116497-1cf437.png",
+    "heroImage": "/images/article-1792895349106-886b3f.png",
     "heroAlt": "サイトのメイン画像",
     "heroRatio": "16 / 7",
     "heroPosition": "center",
@@ -25,6 +25,15 @@
         "description": ""
       }
     ],
-    "myBanners": []
+    "myBanners": [
+      {
+        "name": "バナー",
+        "banner": "/images/article-1792895385133-b1dc78.png",
+        "bannerSize": {
+          "width": 200,
+          "height": 40
+        }
+      }
+    ]
   }
 }
