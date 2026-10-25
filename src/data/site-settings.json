@@ -4,10 +4,10 @@
     "description": "アニメにゲームが大好き！",
     "author": "サミ",
     "lang": "ja",
-    "ogImage": "/images/article-1792895375777-06fd7b.png"
+    "ogImage": "/images/article-1792898009999-a21435.jpg"
   },
   "top": {
-    "heroImage": "/images/article-1792895349106-886b3f.png",
+    "heroImage": "/images/article-1792897997816-aaa8f9.jpg",
     "heroAlt": "サイトのメイン画像",
     "heroRatio": "16 / 7",
     "heroPosition": "center",
@@ -23,6 +23,11 @@
         "name": "Twitterアカウント",
         "url": "https://x.com/s4_i62",
         "description": ""
+      },
+      {
+        "name": "Scrapbox",
+        "url": "https://scrapbox.io/or-fe-4/",
+        "description": "サミの個人的なメモ"
       }
     ],
     "myBanners": [
